@@ -1,0 +1,9 @@
+.form-bottom span{
+    background: #aaaaaa;
+    height: 1px;
+    line-height: 40px;
+    width: 200px;
+    margin-top: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
+}

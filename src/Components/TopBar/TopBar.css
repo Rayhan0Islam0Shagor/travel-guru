@@ -1,0 +1,32 @@
+.custom-logo{
+    height: 50px;
+    width: 130px;
+    filter: contrast(0%) brightness(250%);
+}
+
+nav{
+    background: transparent !important;
+}
+
+nav a{
+    color: white;
+}
+
+nav a:hover{
+    color: orange;
+}
+
+.custom-input{
+    width: 320px !important;
+    background-color: transparent;
+    background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3));
+}
+
+.custom-input::placeholder {
+    color: white;
+}
+
+.custom-input:focus{
+    background-color: black;
+    color: white;
+}
