@@ -16,8 +16,9 @@ import { UserContext } from '../../App';
 const Login = () => {
     const { userData } = useContext(UserContext);
     const [newUser, setNewUser] = useState(false);
-
     const [loggedInUser, setLoggedInUser] = userData;
+
+
     const history = useHistory();
     const location = useLocation();
     const { from } = location.state || { from: { pathname: "/" } };
@@ -37,7 +38,6 @@ const Login = () => {
             isFieldValid = isPassValid && passHasNumber;
         }
         if (isFieldValid) {
-            console.log(e.target.name, e.target.value)
             const newUserInfo = { ...loggedInUser };
             newUserInfo[e.target.name] = e.target.value;
             setLoggedInUser(newUserInfo);
@@ -45,7 +45,6 @@ const Login = () => {
     }
 
     const handleSubmit = (e) => {
-        console.log(newUser, loggedInUser.password)
         if (newUser && loggedInUser.email && loggedInUser.password) {
             firebase.auth().createUserWithEmailAndPassword(loggedInUser.email, loggedInUser.password)
                 .then(res => {
@@ -66,7 +65,6 @@ const Login = () => {
             firebase.auth().signInWithEmailAndPassword(loggedInUser.email, loggedInUser.password)
                 .then(res => {
                     const newUserInfo = { ...loggedInUser };
-                    // newUserInfo.error = '';
                     newUserInfo.success = true;
                     setLoggedInUser(newUserInfo);
                     history.replace(from);
@@ -118,10 +116,12 @@ const Login = () => {
             <div className="bg-light mt-5 p-4 w-50 mx-auto">
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Name</Form.Label>
                         {
                             newUser &&
-                            <Form.Control onBlur={handleBlur} name="name" type="name" placeholder="Enter name" required />
+                            <div>
+                                <Form.Label>Name</Form.Label>
+                                <Form.Control onBlur={handleBlur} name="name" type="name" placeholder="Enter name" required />
+                            </div>
 
                         }
                     </Form.Group>
@@ -146,6 +146,10 @@ const Login = () => {
                         Login
                     </Button>
                 </Form>
+                <p style={{ color: 'red' }}>{newUser.error}</p>
+                {
+                    newUser.success && <p style={{ color: 'green' }}>User {newUser ? 'created' : 'Logged In'} successfully</p>
+                }
                 <div className='text-center mt-3'>
                     {newUser ?
                         <span>You already have an account? <button className='btn btn-outline-warning' onClick={() => setNewUser(!newUser)}> Log in</button> </span> : <span>Don’t have an account? <button className='btn btn-outline-warning ml-5' onClick={() => setNewUser(!newUser)}> Create an account</button> </span>

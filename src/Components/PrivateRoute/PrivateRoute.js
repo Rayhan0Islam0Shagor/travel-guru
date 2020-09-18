@@ -5,7 +5,6 @@ import { UserContext } from '../../App';
 const PrivateRoute = ({ children, ...rest }) => {
     const { userData } = useContext(UserContext);
     const [loggedInUser, setLoggedInUser] = userData;
-    // const [loggedInUser, setLoggedInUser] = useContext(UserContext);
     return (
         <Route
             {...rest}

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import './Header.css'
+import './Home.css'
 import TopBar from '../TopBar/TopBar';
 import place from '../FakeData/Places'
 import { Link } from 'react-router-dom';
 
-const Header = () => {
+const Home = () => {
     return (
         <div>
             <div className="head">
@@ -42,4 +42,4 @@ const Header = () => {
     );
 };
 
-export default Header;
+export default Home;
