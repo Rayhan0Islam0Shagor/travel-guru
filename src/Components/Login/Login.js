@@ -18,7 +18,6 @@ const Login = () => {
     const [newUser, setNewUser] = useState(false);
     const [loggedInUser, setLoggedInUser] = userData;
 
-
     const history = useHistory();
     const location = useLocation();
     const { from } = location.state || { from: { pathname: "/" } };
@@ -51,13 +50,14 @@ const Login = () => {
                     const newUserInfo = { ...loggedInUser };
                     newUserInfo.success = true;
                     setLoggedInUser(newUserInfo);
+                    updateUserInfo(newUserInfo.name);
                     history.replace(from);
                 })
                 .catch(error => {
                     const newUserInfo = { ...loggedInUser };
-                    newUserInfo.error = error.message;
+                    newUserInfo.message = error.message;
                     newUserInfo.success = false;
-                    setLoggedInUser(newUserInfo)
+                    setLoggedInUser(newUserInfo);
                 });
         }
 
@@ -65,19 +65,35 @@ const Login = () => {
             firebase.auth().signInWithEmailAndPassword(loggedInUser.email, loggedInUser.password)
                 .then(res => {
                     const newUserInfo = { ...loggedInUser };
-                    newUserInfo.success = true;
+                    newUserInfo.name = res.user.displayName;
                     setLoggedInUser(newUserInfo);
                     history.replace(from);
                 })
                 .catch(error => {
                     const newUserInfo = { ...loggedInUser };
-                    newUserInfo.error = error.message;
+                    newUserInfo.message = error.message;
                     newUserInfo.success = false;
                     setLoggedInUser(newUserInfo);
                 });
         }
 
         e.preventDefault();
+    }
+
+    const updateUserInfo = (name) => {
+        const user = firebase.auth().currentUser;
+        user.updateProfile({
+            displayName: name
+        })
+            .then(() => {
+                console.log("user name update successfully")
+            })
+            .catch((error) => {
+                const newUserInfo = { ...loggedInUser };
+                newUserInfo.message = error.message;
+                newUserInfo.success = false;
+                setLoggedInUser(newUserInfo);
+            });
     }
 
     const handleGoogleSignIn = () => {
@@ -91,7 +107,10 @@ const Login = () => {
                 history.replace(from);
             })
             .catch(error => {
-                const errorMessage = error.message;
+                const newUserInfo = { ...loggedInUser };
+                newUserInfo.message = error.message;
+                newUserInfo.success = false;
+                setLoggedInUser(newUserInfo);
             });
     }
 
@@ -106,7 +125,10 @@ const Login = () => {
                 history.replace(from);
             })
             .catch(error => {
-                const errorMessage = error.message;
+                const newUserInfo = { ...loggedInUser };
+                newUserInfo.message = error.message;
+                newUserInfo.success = false;
+                setLoggedInUser(newUserInfo);
             });
     }
 
@@ -146,21 +168,17 @@ const Login = () => {
                         Login
                     </Button>
                 </Form>
-                <p style={{ color: 'red' }}>{newUser.error}</p>
-                {
-                    newUser.success && <p style={{ color: 'green' }}>User {newUser ? 'created' : 'Logged In'} successfully</p>
-                }
+                <p className="text-danger mt-4 text-center">{loggedInUser.message}</p>
                 <div className='text-center mt-3'>
                     {newUser ?
                         <span>You already have an account? <button className='btn btn-outline-warning' onClick={() => setNewUser(!newUser)}> Log in</button> </span> : <span>Don’t have an account? <button className='btn btn-outline-warning ml-5' onClick={() => setNewUser(!newUser)}> Create an account</button> </span>
                     }
                 </div>
-
             </div>
             <div className="form-bottom mx-auto w-25 ">
                 <div className="d-flex">
                     <span></span>
-                    <h3 className="text-light">OR</h3>
+                    <h3 className="text-light">or</h3>
                     <span></span>
                 </div>
             </div>

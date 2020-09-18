@@ -20,7 +20,8 @@ function App() {
   const [loggedInUser, setLoggedInUser] = useState({
     name: '',
     email: '',
-    photo: ''
+    photo: '',
+    message: ''
   });
   const [data, setData] = useState();
 

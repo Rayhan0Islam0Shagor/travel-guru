@@ -46,9 +46,7 @@ const Booking = () => {
                                         <input className="bg-light form-control mr-1" type="date" name="" id="" required />
                                         <input className="bg-light form-control ml-1" type="date" name="" id="" required />
                                     </div>
-                                    {/* <Link to='/destination'> */}
                                     <button type="submit" className="btn btn-warning w-100 mt-4">Start Booking</button>
-                                    {/* </Link> */}
                                 </FormGroup>
                             </form>
                         </div>

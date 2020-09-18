@@ -68,7 +68,6 @@ const Destination = () => {
                     <iframe src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d1882321.6359577612!2d91.56056300872038!3d22.861328502383774!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e6!4m5!1s0x3755b8b087026b81%3A0x8fa563bbdd5904c2!2sdhaka!3m2!1d23.810332!2d90.4125181!4m5!1s0x30adc7ea2ab928c3%3A0x3b539e0a68970810!2scox&#39;s%20bazar!3m2!1d21.4272283!2d92.0058074!5e0!3m2!1sen!2sbd!4v1600287253804!5m2!1sen!2sbd" height="630px" width="450px" frameborder="0" style={{ border: 0 }} allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
                 </div>
             </div>
-
         </div>
     );
 };

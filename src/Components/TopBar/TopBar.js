@@ -17,8 +17,6 @@ const TopBar = () => {
     const [loggedInUser, setLoggedInUser] = userData;
     const history = useHistory();
 
-    const isLogged = userData[0].email;
-
     const handleProceedCheckout = () => {
         history.push('/login')
     }
@@ -34,7 +32,6 @@ const TopBar = () => {
 
             });
     }
-
 
     return (
         <nav className="navbar navbar-expand-lg">
@@ -59,8 +56,8 @@ const TopBar = () => {
                         <Link className="nav-link" to="/contact">Contact</Link>
                     </li>
                 </ul>
-                {isLogged ? <button onClick={handleLoggedOut} className="btn btn-warning mr-5 my-2 my-sm-0 pl-4 pr-4" type="submit">log out</button> :
-                    <button onClick={handleProceedCheckout} className="btn btn-warning mr-5 my-2 my-sm-0 pl-4 pr-4" type="submit">login</button>}
+                {loggedInUser.name ? <button onClick={handleLoggedOut} className="btn btn-warning mr-5 my-2 my-sm-0 pl-4 pr-4" type="submit">log out</button>
+                    : <button onClick={handleProceedCheckout} className="btn btn-warning mr-5 my-2 my-sm-0 pl-4 pr-4" type="submit">login</button>}
 
                 <Link className="nav-link" to="/contact">{loggedInUser.name}</Link>
             </div>
